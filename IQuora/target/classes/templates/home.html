@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>IQuora home page</title>
+</head>
+<body>
+	
+	<h1>Welcome to IQuora</h1>
+	
+	<form action="/search">
+		<label for="question">Search a question</label>
+  		<input type="text" name="search" placeholder="Search...">
+  		<button type="submit">Search</button>
+	</form>
+	
+	<form action="/addQuestion" method="post">
+		<label for="question">Ask a question</label>
+		<input type="text" name="question" placeholder="Ask...">
+		<button type="submit">Ask</button>
+	</form>
+	
+    <div>
+        <tr th:each="document : ${documents}">
+            <p th:text="${document.question}"></p>
+            <p th:text="${document.answers}"></p>
+            <button id = "open-popup-button-{{item.id}}">
+				Add new answer
+			</button>
+        </tr>
+ 
+    </div>
+    
+    <script>
+  const popups = document.querySelectorAll("#popup");
+
+  for (const popup of popups) {
+    const openPopupButton = document.querySelector("#open-popup-button-" + popup.id);
+
+    openPopupButton.addEventListener("click", () => {
+      popup.style.display = "block";
+    });
+  }
+
+  const closePopupButton = document.getElementById("close-popup-button");
+
+  closePopupButton.addEventListener("click", () => {
+    for (const popup of popups) {
+      popup.style.display = "none";
+    }
+  });
+</script>
+
+</body>
+
+</html>
